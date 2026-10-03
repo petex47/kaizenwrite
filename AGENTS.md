@@ -813,6 +813,10 @@ UserDefaults.standard.set(colorScheme == .light ? "light" : "dark", forKey: "col
 - Light mode text: `Color(red: 0.20, green: 0.20, blue: 0.20)` (dark gray, not black, easier on eyes)
 - Dark mode text: `Color(red: 0.9, green: 0.9, blue: 0.9)` (off-white, not pure white)
 
+### Theme (KAIZEN design system)
+
+Colors/type live in `freewrite/Theme.swift` (`Kaizen.ground/surface/ink/inkMuted/rule`, `Kaizen.yellow`, `Kaizen.mono`). Black theme = white on black; Paper theme = black on `#FAF9F6`. Square corners, no shadows, one hit of brand yellow `#F7C428` (running timer on Black, recorder spinner/status). Use these tokens instead of raw `.gray`/`.white`/`.black` in new UI.
+
 ## Common Pitfalls
 
 ### Collection Mutation Crashes

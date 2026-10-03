@@ -94,7 +94,7 @@ struct VideoPlayerView: View {
                 .animation(.easeOut(duration: 0.75), value: hasRevealedCurrentItem)
 
             if !hasRevealedCurrentItem {
-                Color.white
+                Kaizen.paper
                     .overlay(alignment: .center) {
                         ProgressView()
                             .controlSize(.small)

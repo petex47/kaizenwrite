@@ -703,11 +703,11 @@ struct VideoRecordingView: View {
                 .clipped()
                 .ignoresSafeArea()
         } else {
-            Color.white
+            Kaizen.blackSoft
                 .overlay {
                     ProgressView()
                         .controlSize(.small)
-                        .tint(.gray.opacity(0.9))
+                        .tint(Kaizen.yellow)
                 }
                 .ignoresSafeArea()
         }
@@ -721,7 +721,7 @@ struct VideoRecordingView: View {
                 HStack(spacing: 8) {
                     if cameraManager.isRecording {
                         Text("Recording")
-                            .foregroundColor(.red.opacity(0.92))
+                            .foregroundColor(Kaizen.yellow)
 
                         Text("•")
                             .foregroundColor(.white.opacity(0.55))

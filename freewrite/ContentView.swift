@@ -836,7 +836,7 @@ struct ContentView: View {
     
     var timerColor: Color {
         if timerIsRunning {
-            return isHoveringTimer ? (colorScheme == .light ? .black : .white) : .gray.opacity(0.8)
+            return isHoveringTimer ? Kaizen.ink(colorScheme) : (colorScheme == .light ? Color.black : Kaizen.yellow)
         } else {
             return isHoveringTimer ? (colorScheme == .light ? .black : .white) : (colorScheme == .light ? .gray : .gray.opacity(0.8))
         }
@@ -854,25 +854,25 @@ struct ContentView: View {
     
     // Add a color utility computed property
     var popoverBackgroundColor: Color {
-        return colorScheme == .light ? Color(NSColor.controlBackgroundColor) : Color(NSColor.darkGray)
+        return colorScheme == .light ? Kaizen.surface(colorScheme) : Kaizen.surface(colorScheme)
     }
     
     var popoverTextColor: Color {
-        return colorScheme == .light ? Color.primary : Color.white
+        return Kaizen.ink(colorScheme)
     }
 
     
     var body: some View {
-        let buttonBackground = colorScheme == .light ? Color.white : Color.black
+        let buttonBackground = Kaizen.ground(colorScheme)
         let navHeight: CGFloat = 68
-        let textColor = colorScheme == .light ? Color.gray : Color.gray.opacity(0.8)
-        let textHoverColor = colorScheme == .light ? Color.black : Color.white
+        let textColor = Kaizen.inkMuted(colorScheme)
+        let textHoverColor = Kaizen.ink(colorScheme)
         let isViewingVideoEntry = currentVideoURL != nil
         
         HStack(spacing: 0) {
             // Main content
             ZStack {
-                Color(colorScheme == .light ? .white : .black)
+                Kaizen.ground(colorScheme)
                     .ignoresSafeArea()
 
                 // Show video player if a video entry is selected
@@ -887,9 +887,9 @@ struct ContentView: View {
                 } else {
                     // Show text editor for text entries
                     TextEditor(text: $text)
-                    .background(Color(colorScheme == .light ? .white : .black))
+                    .background(Kaizen.ground(colorScheme))
                     .font(.custom(selectedFont, size: fontSize))
-                    .foregroundColor(colorScheme == .light ? Color(red: 0.20, green: 0.20, blue: 0.20) : Color(red: 0.9, green: 0.9, blue: 0.9))
+                    .foregroundColor(Kaizen.ink(colorScheme))
                     .scrollContentBackground(.hidden)
                     .scrollIndicators(.never)
                     .lineSpacing(lineHeight)
@@ -917,7 +917,7 @@ struct ContentView: View {
                             if text.isEmpty {
                                 Text(placeholderText)
                                     .font(.custom(selectedFont, size: fontSize))
-                                    .foregroundColor(colorScheme == .light ? .gray.opacity(0.5) : .gray.opacity(0.6))
+                                    .foregroundColor(Kaizen.inkMuted(colorScheme))
                                     .allowsHitTesting(false)
                                     .offset(x: 5, y: 40)
                             }
@@ -952,7 +952,7 @@ struct ContentView: View {
                                 }
                             }
                             .padding(8)
-                            .cornerRadius(6)
+                            .cornerRadius(0)
                             .onHover { hovering in
                                 isHoveringBottomNav = hovering
                             }
@@ -978,7 +978,7 @@ struct ContentView: View {
                                 }
                                 
                                 Text("•")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button("Lato") {
                                     selectedFont = "Lato-Regular"
@@ -997,7 +997,7 @@ struct ContentView: View {
                                 }
                                 
                                 Text("•")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button("Arial") {
                                     selectedFont = "Arial"
@@ -1016,7 +1016,7 @@ struct ContentView: View {
                                 }
                                 
                                 Text("•")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button("System") {
                                     selectedFont = ".AppleSystemUIFont"
@@ -1035,7 +1035,7 @@ struct ContentView: View {
                                 }
                                 
                                 Text("•")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button("Serif") {
                                     selectedFont = "Times New Roman"
@@ -1054,7 +1054,7 @@ struct ContentView: View {
                                 }
                                 
                                 Text("•")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button(randomButtonTitle) {
                                     if let randomFont = availableFonts.randomElement() {
@@ -1075,7 +1075,7 @@ struct ContentView: View {
                                 }
                             }
                             .padding(8)
-                            .cornerRadius(6)
+                            .cornerRadius(0)
                             .onHover { hovering in
                                 isHoveringBottomNav = hovering
                             }
@@ -1128,7 +1128,7 @@ struct ContentView: View {
                             }
 
                             Text("•")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Kaizen.inkMuted(colorScheme))
 
                             // Video camera button
                             Button(action: {
@@ -1214,7 +1214,7 @@ struct ContentView: View {
                             }
 
                             Text("•")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Kaizen.inkMuted(colorScheme))
 
                             Button("Chat") {
                                 showingChatMenu = true
@@ -1360,8 +1360,8 @@ struct ContentView: View {
                                 }
                                 .frame(minWidth: 120, maxWidth: 250) // Allow width to adjust
                                 .background(popoverBackgroundColor)
-                                .cornerRadius(8)
-                                .shadow(color: Color.black.opacity(0.1), radius: 4, y: 2)
+                                .cornerRadius(0)
+                                
                                 // Reset copied state when popover dismisses
                                 .onChange(of: showingChatMenu) { newValue in
                                     if !newValue {
@@ -1371,7 +1371,7 @@ struct ContentView: View {
                             }
                             
                             Text("•")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Kaizen.inkMuted(colorScheme))
 
                             if !isViewingVideoEntry {
                                 // Backspace toggle button
@@ -1393,7 +1393,7 @@ struct ContentView: View {
                                 }
 
                                 Text("•")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Kaizen.inkMuted(colorScheme))
                             }
 
                             Button(isFullscreen ? "Minimize" : "Fullscreen") {
@@ -1414,7 +1414,7 @@ struct ContentView: View {
                             }
                             
                             Text("•")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Kaizen.inkMuted(colorScheme))
                             
                             Button(action: {
                                 createNewEntry()
@@ -1435,7 +1435,7 @@ struct ContentView: View {
                             }
                             
                             Text("•")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Kaizen.inkMuted(colorScheme))
                             
                             // Theme toggle button
                             Button(action: {
@@ -1458,7 +1458,7 @@ struct ContentView: View {
                             }
 
                             Text("•")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Kaizen.inkMuted(colorScheme))
 
                             // Version history button
                             Button(action: {
@@ -1481,13 +1481,13 @@ struct ContentView: View {
                             }
                         }
                         .padding(8)
-                        .cornerRadius(6)
+                        .cornerRadius(0)
                         .onHover { hovering in
                             isHoveringBottomNav = hovering
                         }
                     }
                     .padding()
-                    .background(Color(colorScheme == .light ? .white : .black))
+                    .background(Kaizen.ground(colorScheme))
                     .opacity(bottomNavOpacity)
                     .onHover { hovering in
                         isHoveringBottomNav = hovering
@@ -1525,7 +1525,7 @@ struct ContentView: View {
                                 }
                                 Text(getDocumentsDirectory().path)
                                     .font(.system(size: 10))
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(Kaizen.inkMuted(colorScheme))
                                     .lineLimit(1)
                             }
                             Spacer()
@@ -1572,7 +1572,7 @@ struct ContentView: View {
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
                                                     .frame(width: 40, height: 40)
-                                                    .cornerRadius(4)
+                                                    .cornerRadius(0)
                                                     .overlay(
                                                         Image(systemName: "play.circle.fill")
                                                             .foregroundColor(.white)
@@ -1584,9 +1584,9 @@ struct ContentView: View {
                                                     Rectangle()
                                                         .fill(Color.gray.opacity(0.3))
                                                         .frame(width: 40, height: 40)
-                                                        .cornerRadius(4)
+                                                        .cornerRadius(0)
                                                     Image(systemName: "video.fill")
-                                                        .foregroundColor(.gray)
+                                                        .foregroundColor(Kaizen.inkMuted(colorScheme))
                                                         .font(.system(size: 16))
                                                 }
                                             }
@@ -1652,14 +1652,14 @@ struct ContentView: View {
                                             
                                             Text(entry.date)
                                                 .font(.system(size: 12))
-                                                .foregroundColor(.secondary)
+                                                .foregroundColor(Kaizen.inkMuted(colorScheme))
                                         }
                                     }
                                     .frame(maxWidth: .infinity)
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 8)
                                     .background(
-                                        RoundedRectangle(cornerRadius: 4)
+                                        Rectangle()
                                             .fill(backgroundColor(for: entry))
                                     )
                                 }
@@ -1684,7 +1684,7 @@ struct ContentView: View {
                     .scrollIndicators(.never)
                 }
                 .frame(width: 200)
-                .background(Color(colorScheme == .light ? .white : NSColor.black))
+                .background(Kaizen.ground(colorScheme))
             }
         }
         .overlay {
@@ -1746,9 +1746,9 @@ struct ContentView: View {
     
     private func backgroundColor(for entry: HumanEntry) -> Color {
         if entry.id == selectedEntryId {
-            return Color.gray.opacity(0.1)  // More subtle selection highlight
+            return Kaizen.surface(colorScheme)  // Selected entry sits on the raised surface
         } else if entry.id == hoveredEntryId {
-            return Color.gray.opacity(0.05)  // Even more subtle hover state
+            return Kaizen.rule(colorScheme)  // Hover
         } else {
             return Color.clear
         }
