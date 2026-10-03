@@ -977,7 +977,7 @@ struct ContentView: View {
                                     }
                                 }
                                 
-                                Text("•")
+                                Text("//")
                                     .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button("Lato") {
@@ -996,7 +996,7 @@ struct ContentView: View {
                                     }
                                 }
                                 
-                                Text("•")
+                                Text("//")
                                     .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button("Arial") {
@@ -1015,7 +1015,7 @@ struct ContentView: View {
                                     }
                                 }
                                 
-                                Text("•")
+                                Text("//")
                                     .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button("System") {
@@ -1034,7 +1034,7 @@ struct ContentView: View {
                                     }
                                 }
                                 
-                                Text("•")
+                                Text("//")
                                     .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button("Serif") {
@@ -1053,7 +1053,7 @@ struct ContentView: View {
                                     }
                                 }
                                 
-                                Text("•")
+                                Text("//")
                                     .foregroundColor(Kaizen.inkMuted(colorScheme))
                                 
                                 Button(randomButtonTitle) {
@@ -1127,7 +1127,7 @@ struct ContentView: View {
                                 }
                             }
 
-                            Text("•")
+                            Text("//")
                                 .foregroundColor(Kaizen.inkMuted(colorScheme))
 
                             // Video camera button
@@ -1213,7 +1213,7 @@ struct ContentView: View {
                                 .background(colorScheme == .light ? Color.white : Color.black)
                             }
 
-                            Text("•")
+                            Text("//")
                                 .foregroundColor(Kaizen.inkMuted(colorScheme))
 
                             Button("Chat") {
@@ -1370,7 +1370,7 @@ struct ContentView: View {
                                 }
                             }
                             
-                            Text("•")
+                            Text("//")
                                 .foregroundColor(Kaizen.inkMuted(colorScheme))
 
                             if !isViewingVideoEntry {
@@ -1392,7 +1392,7 @@ struct ContentView: View {
                                     }
                                 }
 
-                                Text("•")
+                                Text("//")
                                     .foregroundColor(Kaizen.inkMuted(colorScheme))
                             }
 
@@ -1413,7 +1413,7 @@ struct ContentView: View {
                                 }
                             }
                             
-                            Text("•")
+                            Text("//")
                                 .foregroundColor(Kaizen.inkMuted(colorScheme))
                             
                             Button(action: {
@@ -1434,7 +1434,7 @@ struct ContentView: View {
                                 }
                             }
                             
-                            Text("•")
+                            Text("//")
                                 .foregroundColor(Kaizen.inkMuted(colorScheme))
                             
                             // Theme toggle button
@@ -1457,7 +1457,7 @@ struct ContentView: View {
                                 }
                             }
 
-                            Text("•")
+                            Text("//")
                                 .foregroundColor(Kaizen.inkMuted(colorScheme))
 
                             // Version history button
@@ -1486,8 +1486,14 @@ struct ContentView: View {
                             isHoveringBottomNav = hovering
                         }
                     }
+                    .font(Kaizen.mono(12))
+                    .textCase(.uppercase)
+                    .tracking(0.5)
                     .padding()
                     .background(Kaizen.ground(colorScheme))
+                    .overlay(alignment: .top) {
+                        Rectangle().fill(Kaizen.rule(colorScheme)).frame(height: 1)
+                    }
                     .opacity(bottomNavOpacity)
                     .onHover { hovering in
                         isHoveringBottomNav = hovering
