@@ -931,7 +931,7 @@ Other settings are session-only (not persisted):
 Add to bottom nav in ContentView.swift around line 500-950:
 
 ```swift
-Text("•")
+Text("//")
     .foregroundColor(.gray)
 
 Button(action: {
