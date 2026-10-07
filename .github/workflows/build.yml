@@ -1,0 +1,35 @@
+name: Build (macOS)
+
+on:
+  push:
+    branches: [claude/brave-lovelace-8g0mqt]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Toolchain
+        run: |
+          sw_vers
+          xcodebuild -version
+          xcodebuild -list -project freewrite.xcodeproj
+
+      - name: Build app (unsigned)
+        run: |
+          set +e
+          xcodebuild \
+            -project freewrite.xcodeproj \
+            -target freewrite \
+            -configuration Debug \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            build 2>&1 | tee build.log > /dev/null
+          code=${PIPESTATUS[0]}
+          echo "xcodebuild exit code: $code"
+          echo "===== errors / result ====="
+          grep -E "error:|\*\* BUILD" build.log | sort -u
+          echo "===== warnings in app sources ====="
+          grep -E "warning:" build.log | grep -E "Theme\.swift|ContentView\.swift|VideoPlayerView\.swift|VideoRecordingView\.swift" | sort -u | head -50
+          exit $code
